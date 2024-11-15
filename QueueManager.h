@@ -1,20 +1,21 @@
-#ifndef QUEUE_MANAGER_H
-#define QUEUE_MANAGER_H
+#ifndef QUEUEMANAGER_H
+#define QUEUEMANAGER_H
 
 #include <queue>
-#include <iostream>
 #include "Vehicle.h"
 
 class QueueManager {
 private:
     std::queue<Vehicle*> queue;
-    const int maxQueueLength = 10;
+    int maxQueueLength;
+
 public:
+    QueueManager(int maxQueueLength) : maxQueueLength(maxQueueLength) {}
+
     void addVehicleToQueue(Vehicle* vehicle);
-    void clearQueue();
-    bool isQueueFull() const;
     int getQueueLength() const;
-    int getRemainingSpots() const;
+    bool isQueueFull() const;
+    void clearQueue();
 };
 
-#endif // QUEUE_MANAGER_H
+#endif // QUEUEMANAGER_H

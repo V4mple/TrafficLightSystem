@@ -9,14 +9,19 @@ int main() {
     std::cout << "Team: Yellow Means Go\n";
     std::cout << "Adaptive Traffic Light\n\n";
 
-    TrafficLightSystem tls;
+    // Initialize the TrafficLightSystem with a max queue length of 10
+    TrafficLightSystem tls(10);
 
-    // Main program loop
     while (true) {
-        std::cout << "\nEnter 'v' for vehicle or 'p' for pedestrian: ";
+        std::cout << "\nEnter 'v' for vehicle or 'p' for pedestrian (or 'q' to quit): ";
         char choice;
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if (choice == 'q') {
+            std::cout << "Exiting program. Goodbye!\n";
+            break;
+        }
 
         if (choice == 'v') {
             std::cout << "Enter 'a' for automobile or 'e' for emergency vehicle: ";
@@ -27,17 +32,18 @@ int main() {
             Vehicle* vehicle;
             if (vehicleType == 'e') {
                 vehicle = new EmergencyVehicle();
-            } else {
+            } else if (vehicleType == 'a') {
                 vehicle = new Automobile();
+            } else {
+                std::cout << "Invalid vehicle type. Please enter 'a' or 'e'.\n";
+                continue;
             }
 
-            // Prompt user to select road 1-4
-            std::cout << "Select road (1-4): ";
+            std::cout << "\nSelect road (1-4): ";
             int road;
             std::cin >> road;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            // Validate the input
             if (road >= 1 && road <= 4) {
                 tls.handleVehicle(vehicle, road);
             } else {

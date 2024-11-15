@@ -1,23 +1,20 @@
-#ifndef EVENT_FLAG_H
-#define EVENT_FLAG_H
+#ifndef EVENTFLAG_H
+#define EVENTFLAG_H
 
 class EventFlag {
 private:
-    bool isEmergencyDetected;
-    bool isQueueFull;
+    bool emergencyDetected;
+
 public:
-    EventFlag() : isEmergencyDetected(false), isQueueFull(false) {}
+    EventFlag() : emergencyDetected(false) {}
 
-    void setEmergencyDetected(bool status) { isEmergencyDetected = status; }
-    bool getEmergencyDetected() const { return isEmergencyDetected; }
+    void setEmergencyDetected(bool status) {
+        emergencyDetected = status;
+    }
 
-    void setQueueFull(bool status) { isQueueFull = status; }
-    bool getQueueFull() const { return isQueueFull; }
-
-    void resetFlags() {
-        isEmergencyDetected = false;
-        isQueueFull = false;
+    bool isEmergencyDetected() const {
+        return emergencyDetected;
     }
 };
 
-#endif // EVENT_FLAG_H
+#endif // EVENTFLAG_H

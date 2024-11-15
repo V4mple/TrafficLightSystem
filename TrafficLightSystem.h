@@ -1,20 +1,19 @@
-#ifndef TRAFFIC_LIGHT_SYSTEM_H
-#define TRAFFIC_LIGHT_SYSTEM_H
+#ifndef TRAFFICLIGHTSYSTEM_H
+#define TRAFFICLIGHTSYSTEM_H
 
 #include "QueueManager.h"
 #include "Vehicle.h"
-#include "EmergencyVehicle.h"
-#include "Automobile.h"
 #include "EventFlag.h"
+#include <vector>
 
 class TrafficLightSystem {
 private:
-    QueueManager queues[4];
+    std::vector<QueueManager> queues;
     EventFlag eventFlag;
+
 public:
+    TrafficLightSystem(int maxQueueLength = 10);
     void handleVehicle(Vehicle* vehicle, int road);
-    void handlePedestrian();
-    void run();
 };
 
-#endif // TRAFFIC_LIGHT_SYSTEM_H
+#endif // TRAFFICLIGHTSYSTEM_H

@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.10)
+project(TrafficLightSystem)
+
+set(CMAKE_CXX_STANDARD 17)
+
+include_directories(${CMAKE_SOURCE_DIR})
+
+add_executable(TrafficLightSystem
+        main.cpp
+        TrafficLightSystem.cpp
+        QueueManager.cpp
+        Vehicle.cpp
+        EmergencyVehicle.cpp
+        Automobile.cpp
+        Vehicle.cpp
+        Automobile.cpp
+        Vehicle.h
+        EventFlag.h
+)

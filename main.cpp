@@ -1,60 +1,108 @@
 #include <iostream>
 #include <limits>
-#include "TrafficLightSystem.h"
-#include "Automobile.h"
-#include "EmergencyVehicle.h"
+#include "TrafficLightSystem.h"  // Header for the traffic light system
+#include "Automobile.h"         // Header for Automobile class
+#include "EmergencyVehicle.h"   // Header for EmergencyVehicle class
 
-int main() {
+int main()
+{
+    // Display program header
     std::cout << "CSC 300 Project Week#4 Deliverable\n";
     std::cout << "Team: Yellow Means Go\n";
     std::cout << "Adaptive Traffic Light\n\n";
 
-    // Initialize the TrafficLightSystem with a max queue length of 10
+    // Initialize the TrafficLightSystem with a maximum queue length of 10
     TrafficLightSystem tls(10);
 
-    while (true) {
-        std::cout << "\nEnter 'v' for vehicle or 'p' for pedestrian (or 'q' to quit): ";
-        char choice;
-        std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    // Main loop to process user input and manage traffic system
+    while (true)
+    {
+        char choice; // User choice for the type of action
+        std::cout << "\nEnter 'v' for vehicle, 'p' for pedestrian, 'e' for error (or 'q' to quit): ";
 
-        if (choice == 'q') {
+        // Validate user input for main menu
+        do
+        {
+            std::cin >> choice;
+            choice = toupper(choice); // Convert input to uppercase for uniformity
+            if (choice != 'Q' && choice != 'V' && choice != 'P' && choice != 'E')
+            {
+                std::cout << "Invalid Entry. Please Try Again.";
+                std::cin.clear(); // Clear invalid input
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore excess input
+            }
+        } while (choice != 'Q' && choice != 'V' && choice != 'P' && choice != 'E');
+
+        // Exit the program if the user chooses 'q'
+        if (choice == 'Q')
+        {
             std::cout << "Exiting program. Goodbye!\n";
-            break;
+            return 0;
         }
 
-        if (choice == 'v') {
-            std::cout << "Enter 'a' for automobile or 'e' for emergency vehicle: ";
-            char vehicleType;
-            std::cin >> vehicleType;
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        // Trigger an error if the user chooses 'e'
+        if (choice == 'E')
+        {
+            std::cout << "Triggering an error in the system.\n";
+            tls.triggerError(); // Call method to simulate an error
+            continue; // Skip remaining code in this iteration
+        }
 
+        // Handle vehicle input if the user chooses 'v'
+        if (choice == 'V')
+        {
+            char vehicleType; // User choice for type of vehicle
+            std::cout << "Enter 'a' for automobile or 'e' for emergency vehicle: ";
+
+            // Validate user input for vehicle type
+            do
+            {
+                std::cin >> vehicleType;
+                vehicleType = toupper(vehicleType); // Convert to uppercase
+                if (vehicleType != 'E' && vehicleType != 'A')
+                {
+                    std::cout << "Invalid Entry. Please Try Again.";
+                    std::cin.clear(); // Clear invalid input
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore excess input
+                }
+            } while (vehicleType != 'E' && vehicleType != 'A');
+
+            // Create the appropriate vehicle object based on user input
             Vehicle* vehicle;
-            if (vehicleType == 'e') {
-                vehicle = new EmergencyVehicle();
-            } else if (vehicleType == 'a') {
-                vehicle = new Automobile();
-            } else {
-                std::cout << "Invalid vehicle type. Please enter 'a' or 'e'.\n";
-                continue;
+            if (vehicleType == 'E')
+            {
+                vehicle = new EmergencyVehicle(); // Create an emergency vehicle
+            }
+            else if (vehicleType == 'A')
+            {
+                vehicle = new Automobile(); // Create an automobile
             }
 
             std::cout << "\nSelect road (1-4): ";
-            int road;
-            std::cin >> road;
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            int road; // User-selected road number
 
-            if (road >= 1 && road <= 4) {
-                tls.handleVehicle(vehicle, road);
-            } else {
-                std::cout << "Invalid road number. Please enter a number between 1 and 4.\n";
-            }
+            // Validate user input for road number
+            do
+            {
+                std::cin >> road;
 
-            delete vehicle;
-        } else if (choice == 'p') {
+                if (std::cin.fail() || road < 1 || road > 4)
+                {
+                    std::cout << "Invalid Entry. Please Try Again.";
+                    std::cin.clear(); // Clear invalid input
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore excess input
+                }
+            } while (std::cin.fail() || road < 1 || road > 4);
+
+            // Handle the vehicle arrival at the specified road
+            tls.handleVehicle(vehicle, road);
+            delete vehicle; // Free dynamically allocated memory
+        }
+
+            // Handle pedestrian input if the user chooses 'p'
+        else if (choice == 'P')
+        {
             std::cout << "Pedestrian crossing button pressed. Allowing pedestrian to cross.\n";
-        } else {
-            std::cout << "Invalid input. Please try again.\n";
         }
     }
 

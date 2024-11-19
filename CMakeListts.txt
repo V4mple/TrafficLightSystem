@@ -1,19 +1,33 @@
+# Minimum version of CMake required to build the project
 cmake_minimum_required(VERSION 3.10)
+
+# Project name
 project(TrafficLightSystem)
 
+# Set the C++ standard to C++17
 set(CMAKE_CXX_STANDARD 17)
 
+# Include directories for header files
+# This includes the source directory to make headers accessible
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_executable(TrafficLightSystem
-        main.cpp
-        TrafficLightSystem.cpp
-        QueueManager.cpp
-        Vehicle.cpp
-        EmergencyVehicle.cpp
-        Automobile.cpp
-        Vehicle.cpp
-        Automobile.cpp
+# Define the executable and add all source and header files
+add_executable(TLS_V2
+        main.cpp                # Main entry point of the program
+        Automobile.cpp          # Implementation of the Automobile class
+        EmergencyVehicle.cpp    # Implementation of the EmergencyVehicle class
+        ErrorHandler.cpp        # Implementation of error handling logic
+        QueueManager.cpp        # Implementation of the QueueManager class
+        TrafficLight.cpp        # Implementation of TrafficLight functionality
+        TrafficLightSystem.cpp  # Core TrafficLightSystem implementation
+        Vehicle.cpp             # Implementation of the base Vehicle class
+        Automobile.h            # Header file for Automobile
+        EmergencyVehicle.h      # Header file for EmergencyVehicle
+        ErrorHandler.h          # Header file for ErrorHandler
+        EventFlag.h             # Header file for EventFlag
+        QueueManager.h          # Header file for QueueManager
+        TrafficLight.h          # Header file for TrafficLight
+        TrafficLightSystem.h    # Header file for TrafficLightSystem
         Vehicle.h
-        EventFlag.h
+        QueueManager.cpp               # Header file for the base Vehicle class
 )

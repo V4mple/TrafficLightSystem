@@ -1,3 +1,31 @@
+/**
+ * Entry point for the Adaptive Traffic Light System simulation.
+ *
+ * This file serves as the user interface and main control loop for the Traffic Light System.
+ * It handles user input, initializes the TrafficLightSystem, and processes actions like
+ * vehicle arrivals, pedestrian crossings, and error simulations.
+ *
+ * Key Responsibilities:
+ * - Initialize the TrafficLightSystem with a maximum queue length.
+ * - Provide a user-friendly interface to simulate real-world traffic scenarios.
+ * - Process user input to:
+ *   1. Add vehicles (automobiles or emergency vehicles) to specific roads.
+ *   2. Simulate pedestrian crossing events.
+ *   3. Trigger errors in the system for testing error handling.
+ * - Manage memory by dynamically creating and deleting Vehicle objects.
+ *
+ * Current Integration:
+ * - Fully integrated with the TrafficLightSystem to handle vehicle queues, traffic signals,
+ *   and emergency responses.
+ * - Supports triggering errors through the ErrorHandler.
+ *
+ * Scalability:
+ * 1. **Enhance Pedestrian Simulation**:
+ *    - Add functionality to handle specific crosswalks (e.g., North, South, East, West).
+ * 2. **Add Real-Time Updates**:
+ *    - Display the current state of traffic lights and queues after each action.
+ */
+
 #include <iostream>
 #include <limits>
 #include "TrafficLightSystem.h"  // Header for the traffic light system

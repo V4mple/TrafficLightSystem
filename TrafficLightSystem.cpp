@@ -113,6 +113,8 @@ void TrafficLightSystem::setAllSignalsRed()
 // Changes the traffic light signals for a specific road pair (e.g., North-South or West-East)
 void TrafficLightSystem::changeSignalPair(int pair)
 {
+    errorHandler.generateError(); // Will create an error based on chance.
+
     if (pair == 1) // North-South signals
     {
         west.changeSignal("Red", errorHandler, eventFlag);

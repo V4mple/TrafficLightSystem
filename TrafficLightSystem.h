@@ -1,12 +1,12 @@
 #ifndef TRAFFICLIGHTSYSTEM_H
 #define TRAFFICLIGHTSYSTEM_H
 
-#include "QueueManager.h"  // Manages vehicle queues for each road
-#include "Vehicle.h"       // Base class for vehicle types
-#include "EventFlag.h"     // Tracks emergency events
-#include "TrafficLight.h"  // Represents individual traffic lights
-#include "ErrorHandler.h"  // Handles system errors
-#include <vector>          // For managing multiple queues with std::vector
+#include "QueueManager.h"
+#include "Vehicle.h"
+#include "EventFlag.h"
+#include "TrafficLight.h"
+#include "ErrorHandler.h"
+#include <vector>
 
 // Class representing the traffic light system, responsible for managing traffic flow
 class TrafficLightSystem {
@@ -22,24 +22,28 @@ private:
     int queueLength; // Maximum length of a queue before action is taken
 
 public:
-    // Constructor: Initializes the traffic light system with a maximum queue length
     TrafficLightSystem(int maxQueueLength);
 
     // Handles a vehicle arriving at a specified road
-    // - vehicle: A pointer to the Vehicle object
-    // - road: The road number (1-4) where the vehicle is arriving
     void handleVehicle(Vehicle* vehicle, int road);
 
     // Handles actions when a queue becomes full for a specified road
-    // - road: The road number (1-4) where the queue is full
     void handleFullQueue(int road);
 
     // Sets all traffic lights to red, typically for emergencies
     void setAllSignalsRed();
 
-    // Changes the traffic light signals for a specific road pair
-    // - pair: Specifies which pair of roads to update (1 for North-South, 2 for West-East)
+    // Changes the traffic light signals for a specific road pair (e.g., North-South or West-East)
     void changeSignalPair(int pair);
+
+    // Displays the current state of all traffic lights
+    void displayTrafficLightStates() const;
+
+    // Displays the current length of all queues
+    void displayQueueLengths() const;
+
+    // Handles pedestrian crossing at a specified crosswalk
+    void handlePedestrian(char crosswalk);
 
     // Public method to trigger an error in the system
     void triggerError();

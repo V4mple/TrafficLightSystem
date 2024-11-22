@@ -26,6 +26,7 @@ ErrorHandler::ErrorHandler()
 {
     error = false;
     errorCode = "No Error Detected\n";
+    srand(time(0));
 }
 
 // Determines if an error is detected.

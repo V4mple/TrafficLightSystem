@@ -14,7 +14,7 @@ TrafficLight::TrafficLight(std::string direction)
 }
 
 // Returns the current signal color of the traffic light
-std::string TrafficLight::getSignalColor()
+std::string TrafficLight::getSignalColor() const
 {
     return color;
 }

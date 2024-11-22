@@ -20,7 +20,7 @@ public:
     TrafficLight(std::string direction);
 
     // Returns the current signal color of the traffic light
-    std::string getSignalColor();
+    std::string getSignalColor() const;
 
     // Changes the traffic light to "Green"
     void changeToGreen();

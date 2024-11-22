@@ -192,6 +192,6 @@ void TrafficLightSystem::handlePedestrian(char crosswalk)
 void TrafficLightSystem::triggerError()
 {
     std::cout << "Error triggered in the system!\n";
-    errorHandler.errorDetected(); // Trigger the error state in the error handler
+    errorHandler.setError(true); // Trigger the error state in the error handler
     setAllSignalsRed();          // Respond by setting all signals to red
 }

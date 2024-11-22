@@ -86,3 +86,9 @@ bool ErrorHandler::getErrorStatus()
 {
     return error;
 }
+
+// Sets the error status based on the passed parameter
+void ErrorHandler::setError(bool parameter)
+{
+    error = parameter;
+}

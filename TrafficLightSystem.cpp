@@ -201,19 +201,22 @@ void TrafficLightSystem::handlePedestrian(char crosswalk)
 // Public method to trigger an error in the system
 void TrafficLightSystem::triggerError()
 {
-    errorHandler.generateError();
+    errorHandler.generateError(); // Create an error based on chance.
 
+    // Handle the case that an error was created.
     if (errorHandler.getErrorStatus())
     {
         std::cout << "Error triggered in the system!\n";
         setAllSignalsRed();
     }
+    // Handle the case that an error failed to create, but lights are already in "Error" mode.
     if (!errorHandler.getErrorStatus() && north.getSignalColor() == "Blinking Red" && south.getSignalColor() == "Blinking Red" && west.getSignalColor() == "Blinking Red" && east.getSignalColor() == "Blinking Red")
     {
         std::cout << "Error has been fixed! Converting all lights to red.";
         setAllSignalsRed();
     }
-    else
+    // Handle the case that an error failed to create.
+    if (!errorHandler.getErrorStatus())
     {
         std::cout << "No error was generated. Systems are still operational.";
     }

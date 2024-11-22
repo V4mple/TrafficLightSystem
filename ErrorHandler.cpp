@@ -26,7 +26,7 @@ ErrorHandler::ErrorHandler()
 {
     error = false;
     errorCode = "No Error Detected\n";
-    srand(time(0));
+    srand(time(0)); // Set RNG seed.
 }
 
 // Determines if an error is detected.
@@ -86,10 +86,4 @@ void ErrorHandler::generateError()
 bool ErrorHandler::getErrorStatus()
 {
     return error;
-}
-
-// Sets the error status based on the passed parameter
-void ErrorHandler::setError(bool parameter)
-{
-    error = parameter;
 }

@@ -19,18 +19,21 @@
  *   and emergency responses.
  * - Supports triggering errors through the ErrorHandler.
  *
- * Scalability:
- * 1. **Enhance Pedestrian Simulation**:
- *    - Add functionality to handle specific crosswalks (e.g., North, South, East, West).
- * 2. **Add Real-Time Updates**:
- *    - Display the current state of traffic lights and queues after each action.
  */
-
+ 
 #include <iostream>
 #include <limits>
 #include "TrafficLightSystem.h"  // Header for the traffic light system
 #include "Automobile.h"         // Header for Automobile class
 #include "EmergencyVehicle.h"   // Header for EmergencyVehicle class
+
+void displaySystemState(TrafficLightSystem& tls) {
+    // Displays the current state of traffic lights and queues
+    std::cout << "\n--- Current System State ---\n";
+    tls.displayTrafficLightStates(); // Method to display traffic light colors
+    tls.displayQueueLengths();      // Method to display queue lengths for each road
+    std::cout << "-----------------------------\n";
+}
 
 int main()
 {
@@ -46,7 +49,12 @@ int main()
     while (true)
     {
         char choice; // User choice for the type of action
-        std::cout << "\nEnter 'v' for vehicle, 'p' for pedestrian, 'e' for error (or 'q' to quit): ";
+        std::cout << "\n>>> Please choose an action:\n"
+                  << "    'v' - Add a vehicle (automobile or emergency)\n"
+                  << "    'p' - Simulate a pedestrian crossing\n"
+                  << "    'e' - Trigger a system error\n"
+                  << "    'q' - Quit the program\n"
+                  << "Your choice: ";
 
         // Validate user input for main menu
         do
@@ -71,8 +79,9 @@ int main()
         // Trigger an error if the user chooses 'e'
         if (choice == 'E')
         {
-            std::cout << "Triggering an error in the system.\n";
+            std::cout << "\n>>> Triggering a system error...\n";
             tls.triggerError(); // Call method to simulate an error
+            displaySystemState(tls); // Show updated state
             continue; // Skip remaining code in this iteration
         }
 
@@ -80,7 +89,7 @@ int main()
         if (choice == 'V')
         {
             char vehicleType; // User choice for type of vehicle
-            std::cout << "Enter 'a' for automobile or 'e' for emergency vehicle: ";
+            std::cout << "\n>>> Enter 'a' for automobile or 'e' for emergency vehicle: ";
 
             // Validate user input for vehicle type
             do
@@ -106,7 +115,7 @@ int main()
                 vehicle = new Automobile(); // Create an automobile
             }
 
-            std::cout << "\nSelect road (1-4): ";
+            std::cout << "\n>>> Select road (1-4): ";
             int road; // User-selected road number
 
             // Validate user input for road number
@@ -125,12 +134,30 @@ int main()
             // Handle the vehicle arrival at the specified road
             tls.handleVehicle(vehicle, road);
             delete vehicle; // Free dynamically allocated memory
+            displaySystemState(tls); // Show updated state
         }
 
             // Handle pedestrian input if the user chooses 'p'
         else if (choice == 'P')
         {
-            std::cout << "Pedestrian crossing button pressed. Allowing pedestrian to cross.\n";
+            std::cout << "\n>>> Select crosswalk (N for North, S for South, E for East, W for West): ";
+            char crosswalk;
+            do
+            {
+                std::cin >> crosswalk;
+                crosswalk = toupper(crosswalk);
+                if (crosswalk != 'N' && crosswalk != 'S' && crosswalk != 'E' && crosswalk != 'W')
+                {
+                    std::cout << "Invalid Entry. Please Try Again.";
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            } while (crosswalk != 'N' && crosswalk != 'S' && crosswalk != 'E' && crosswalk != 'W');
+
+            // Simulate pedestrian crossing
+            std::cout << "\n>>> Pedestrian crossing button activated for the " << crosswalk << " crosswalk.\n";
+            tls.handlePedestrian(crosswalk); // Handle pedestrian crossing logic
+            displaySystemState(tls); // Show updated state
         }
     }
 

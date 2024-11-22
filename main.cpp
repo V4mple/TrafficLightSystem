@@ -43,7 +43,7 @@ int main()
     std::cout << "Adaptive Traffic Light\n\n";
 
     // Initialize the TrafficLightSystem with a maximum queue length of 10
-    TrafficLightSystem tls(10);
+    TrafficLightSystem tls(3);
 
     // Main loop to process user input and manage traffic system
     while (true)

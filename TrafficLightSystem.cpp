@@ -60,8 +60,17 @@ void TrafficLightSystem::handleVehicle(Vehicle* vehicle, int road)
     }
 
     // Handle normal vehicles
-    std::cout << "\n>>> Adding " << vehicle->getType() << " to Road " << road << ".\n";
-    queues[adjustedRoad].addVehicleToQueue(vehicle);
+    // Ignore vehicles with a currently green light
+    if (light->getSignalColor() == "Green")
+    {
+        std::cout << "Light is already green! Ignoring vehicle.";
+    }
+    // If the light isn't green, add it to a queue.
+    else
+    {
+        std::cout << "\n>>> Adding " << vehicle->getType() << " to Road " << road << ".\n";
+        queues[adjustedRoad].addVehicleToQueue(vehicle);
+    }
 
     int currentQueueLength = queues[adjustedRoad].getQueueLength();
     std::cout << ">>> Queue length for Road " << road << ": " << currentQueueLength << " vehicles.\n";
@@ -70,8 +79,7 @@ void TrafficLightSystem::handleVehicle(Vehicle* vehicle, int road)
     if (queues[adjustedRoad].isQueueFull())
     {
         std::cout << ">>> Queue is full on Road " << road << "! Turning the light green to clear traffic.\n";
-        light->changeToGreen();
-        queues[adjustedRoad].clearQueue();
+        handleFullQueue(road);
     }
 }
 
